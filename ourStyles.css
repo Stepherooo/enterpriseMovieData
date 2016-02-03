@@ -28,6 +28,13 @@ h3 {
 	font-family: Courier, "Times New Roman";
 }
 
+.credit {
+	font-size: 10pt;
+	position:relative;
+	top:50px;
+	border-bottom: 1px solid white;
+}
+
 a:link {
 	color: #803300;
 	text-decoration: none;

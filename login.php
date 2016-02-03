@@ -63,6 +63,10 @@
 				<td><input type="reset" value="Clear"></td>
 			</tr>
 			
+			<tr>
+				<td colspan="2"><i class="credit">Team Enterprise: Stephanie Gan, Chris Mendonca, Randall Rood</i></td>
+			</tr>
+			
 		</form></table>
 	</div>
 
