@@ -90,6 +90,22 @@
 			$searchResults = $stmt -> fetchAll();
 		return $searchResults;
 	}
+
+	function getAverageLength() {
+		global $conn;
+		/*$sql = "SELECT AVG(length) as average 
+			FROM temp_movie_length";
+		$stmt = $conn -> prepare($sql);
+		$stmt -> execute();
+		//$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$result = $stmt -> fetchAll(); */
+		
+		$stmt = $conn->query("SELECT AVG(length) FROM temp_movie_length");
+		$average = $stmt->fetchColumn();
+		$sql = "TRUNCATE temp_movie_length";
+		$conn->exec($sql);
+		return $average;
+	}
 ?>
 
 	<?php include 'topLayout.php'; ?>
@@ -190,6 +206,17 @@
 					echo "<td>" . $resultDisplay['rating'] . "</td>";
 					echo "</tr>";
 				} 
+				
+				// Puts search results into a table
+				foreach ($results as $inputs) {
+					$sql = "INSERT INTO temp_movie_length
+						VALUES('" . $inputs['length'] . "')";
+					$stmt = $conn-> prepare($sql);
+					$stmt ->execute();
+				}
+				
+				$avgLength = getAverageLength();
+				echo "<tr><td colspan='100'>Average length of the results: " . $avgLength . " minutes!</td></tr>";
 			}
 		?>
 	</table>
