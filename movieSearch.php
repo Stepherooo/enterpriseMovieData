@@ -93,22 +93,15 @@
 
 	function getAverageLength() {
 		global $conn;
-		/*$sql = "SELECT AVG(length) as average 
-			FROM temp_movie_length";
-		$stmt = $conn -> prepare($sql);
-		$stmt -> execute();
-		//$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$result = $stmt -> fetchAll(); */
-		
 		$stmt = $conn->query("SELECT AVG(length) FROM temp_movie_length");
 		$average = $stmt->fetchColumn();
 		$sql = "TRUNCATE temp_movie_length";
 		$conn->exec($sql);
 		return $average;
 	}
+	
+	include 'topLayout.php';
 ?>
-
-	<?php include 'topLayout.php'; ?>
 	
 	<table id="main">
 		<tr><td colspan="4">
@@ -128,9 +121,9 @@
 
 		</td></tr>
 		
-		<tr><td><br></td></tr>
+		<tr><td id="space" colspan="4"></td></tr>
 		
-		<tr><td colspan="4"><h2>Filter Movies By Director, Genre, and/or Year</h2></td></tr>
+		<tr><td colspan="4"><h2>Filter Movies By Director, Genre, and/or Rating</h2></td></tr>
 			
 		<tr><td>
 			<h3>Director</h3>
@@ -190,17 +183,17 @@
 				$searchGenre = $_POST['genre'];
 				$searchRating = $_POST['rating'];
 				
-				echo "<tr><td class='center' colspan='100'><h2>Your Movie Results</h2></td></tr>";
+				echo "<tr><td class='center' colspan='100'>&#10032; Your Movie Results &#10032;</td></tr>";
 				echo "<tr><th>Movie Title</th>";
 				echo "<th>Director</th>";
 				echo "<th>Genre</th>";
 				echo "<th>Rating</th></tr>";
 				
 				$results = getQuery($searchMovie, $searchDirector, $searchGenre, $searchRating);
-				
+
 				foreach ($results as $resultDisplay) {
 					echo "<tr>";
-					echo "<td>" . $resultDisplay['title'] . "</td>";
+					echo "<td><a href='moreInfo.php?id=" . $resultDisplay['movieID'] . "'>" . $resultDisplay['title'] . "</a></td>";
 					echo "<td>" . $resultDisplay['director'] . "</td>";
 					echo "<td>" . $resultDisplay['genre'] . "</td>";
 					echo "<td>" . $resultDisplay['rating'] . "</td>";
@@ -216,7 +209,7 @@
 				}
 				
 				$avgLength = getAverageLength();
-				echo "<tr><td colspan='100'>Average length of the results: " . $avgLength . " minutes!</td></tr>";
+				echo "<tr><td class='center' colspan='100'>Average length of the results: " . $avgLength . " minutes!</td></tr>";
 			}
 		?>
 	</table>
