@@ -92,7 +92,8 @@
 
 		$sql = "SELECT *
 			FROM movieDatabase
-			" . $whereStmt;
+			" . $whereStmt .
+			"ORDER BY title ASC";
 			$stmt = $conn -> prepare($sql);
 			$stmt -> execute();
 			$searchResults = $stmt -> fetchAll();
