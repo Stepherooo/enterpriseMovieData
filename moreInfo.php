@@ -1,4 +1,12 @@
 <?php
+	session_start();
+	
+	if(!isset($_SESSION['username'])) {
+		header('Location: login.php');
+	}
+?>
+
+<?php
 	require 'databaseConnection.php';
 	if ( is_numeric($_GET['id']) ) {
 		$request = $_GET['id'];
@@ -14,9 +22,25 @@
 		$stmt -> execute();
 		return $stmt -> fetchAll();
 	}
-	
-	include 'topLayout.php';
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>MOVIES!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="ourStyles.css">
+</head>
+<body>
+	<div id="header"></div>
+	<div id="nav">
+		<h3>Members Area</h3>
+		<a href="movieSearch.php">Home</a><br>
+		<a href="editDatabase.php">Add to Database</a><br>
+		<a href="deleteStuff.php">Delete from Database</a><br>
+		<a href="changePassword.php">Change Password</a><br>
+		<a href="logout.php">Logout</a>
+	</div>
 
 	<table id="inDepth">
 		<tr><td id="space" colspan="2"></td></tr>
@@ -52,11 +76,10 @@
 		
 		<tr><td id="space" colspan="2"></td></tr>
 		
-		<tr>
-			<td colspan="2">
-				<button onclick="history.back();">Go Back</button><img src="popcorn-icon.png">
-			</td>
-		</tr>
+		
 	</table>
 
-<?php include 'bottomLayout.php'; ?>
+</body>
+</html>
+
+<?php $conn = null; ?>

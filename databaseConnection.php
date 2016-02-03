@@ -1,5 +1,7 @@
 <?php
     /* Connects to our Database */
+    //CHECK
+    //
     $servername = "localhost";
 	$dbname = "gan1832";
 	$username = "gan1832";

@@ -6,11 +6,19 @@ body {
 	font-family: Courier, "Times New Roman";
 }
 
+h1 {
+	font-size: 18pt;
+	margin: 5px;
+	padding: 0;
+	font-family: Courier, "Times New Roman";
+}
+
 h2 {
 	font-size: 16pt;
 	margin: 0;
 	padding: 0;
 	font-family: Courier, "Times New Roman";
+	font-weight: 500;
 }
 
 h3 {
@@ -109,7 +117,7 @@ td {
 	color: #ffffff;
 	position: absolute;
 	top: 10px;
-	right: 10px;
+	right: 50px;
 	display: block;
 	width: 200px;
 	padding: 5px;

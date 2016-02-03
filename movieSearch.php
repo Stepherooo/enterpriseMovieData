@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	
+	if(!isset($_SESSION['username'])) {
+		header('Location: login.php');
+	}
+?>
+
 <?php 
 	require 'databaseConnection.php';
 	
@@ -100,15 +108,41 @@
 		return $average;
 	}
 	
-	include 'topLayout.php';
+	function getMaxYear() {
+		global $conn;
+		$stmt = $conn->query("SELECT MAX(year) FROM movieDatabase");
+		$maxYear = $stmt->fetchColumn();
+		$stmt = $conn->query("SELECT title FROM movieDatabase WHERE year LIKE '" . $maxYear . "' LIMIT 1");
+		$latestMovie = $stmt->fetchColumn();
+		return $latestMovie;
+	}
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>MOVIES!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="ourStyles.css">
+</head>
+<body>
+	<div id="header"></div>
+	<div id="nav">
+		<h3>Members Area</h3>
+		<a href="movieSearch.php">Home</a><br>
+		<a href="editDatabase.php">Add to Database</a><br>
+		<a href="deleteStuff.php">Delete from Database</a><br>
+		<a href="changePassword.php">Change Password</a><br>
+		<a href="logout.php">Logout</a>
+	</div>
 	
 	<table id="main">
 		<tr><td colspan="4">
-			<h2>Choose a Movie Title!</h2>
+			<h1><?php echo "Welcome " . $_SESSION['name']; ?>!</h1>
+			<h2>Choose a Movie Title</h2>
 			<form method="post">
 				<select size=1 name="movieID">
-					<option value="-1">Choose A Movie Title</option>
+					<option value="-1">Choose A Movie Title (sorted alphabetically)</option>
 					<?php
 						$movieTitles = getMovies();
 						// loop through options with foreach
@@ -208,10 +242,15 @@
 					$stmt ->execute();
 				}
 				
+				$maxYear = getMaxYear();
+				echo "<tr><td class='center' colspan='100'>Most recent movie made in our database is: " . $maxYear . "!</td></tr>";
+				
 				$avgLength = getAverageLength();
 				echo "<tr><td class='center' colspan='100'>Average length of the results: " . $avgLength . " minutes!</td></tr>";
 			}
 		?>
 	</table>
+</body>
+</html>
 
-<?php include 'bottomLayout.php'; ?>
+<?php $conn = null; ?>
