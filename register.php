@@ -1,7 +1,8 @@
 <?php
 	require 'databaseConnection.php';
 	
-	if ( isset ($_POST['username']) && isset ($_POST['password']) && 
+	if ( isset ($_POST['username']) && $_POST['username'] != '' &&
+		isset ($_POST['password']) && $_POST['password'] != '' &&
 		isset ($_POST['name']) && isset ($_POST['submit']) ) {
 			
 		try {
@@ -14,15 +15,19 @@
 			$stmt -> execute( array (":username" => $_POST['username'],
 				":password" => hash("sha1", $_POST['password']),
 				":name" => $_POST['name']) );
-				
-			echo "<div style='background-color: #ffffff;'> >> Thanks for registering!</div>";
+			
+			echo "<div class='adminMessage'> >> Thanks for registering!</div>";
+			//header("Location: movieSearch.php");
 		}
 		
 		catch (PDOException $e) {
-			//echo "<div style='background-color: #ffffff;'> >> ERROR: Did you leave a field blank? Try again!</div>";
 			echo $e->getMessage();
 		}
 	}
+	else {
+		//echo "<div class='adminMessage'> >> ERROR: Did you leave a field blank? Try again!</div>";
+	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -173,3 +173,8 @@ td {
 #login td {
 	padding: 10px;
 }
+
+.adminMessage {
+	background-color: #ffffff;
+	font-size: 18pt;
+}

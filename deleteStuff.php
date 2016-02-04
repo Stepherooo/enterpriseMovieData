@@ -24,7 +24,7 @@
 			$stmt = $conn -> prepare($sql);
 			$stmt -> execute(array(':movieID'=> $_POST['movieID']));
 			
-			echo "<div style='background-color: #ffffff;'> >> Data Deleted!</div>";
+			echo "<div class='adminMessage'> >> Data Deleted!</div>";
 		}
 		catch (PDOException $e) {
 			echo "ERROR: " . $e->getMessage();

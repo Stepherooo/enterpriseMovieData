@@ -43,7 +43,7 @@
 				":length" => $_POST['length'],
 				":year" => $_POST['year']) );
 			
-			echo "<div style='background-color: #ffffff;'> >> Data Submitted for Approval!</div>";
+			echo "<div class='adminMessage'> >> Data Submitted for Approval!</div>";
 		}
 		catch (PDOException $e) {
 			echo "ERROR: " . $e->getMessage();

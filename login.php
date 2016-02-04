@@ -15,7 +15,7 @@
 		$record = $stmt -> fetch();
 		
 		if (empty($record)){
-			echo "Wrong username/password!";
+			echo "<div class='adminMessage'> >> Wrong username/password!</div>";
 		} 
 		
 		else {
@@ -26,7 +26,7 @@
 			
 			$_SESSION['username'] = $record['username'];
 			$_SESSION['name'] = $record['name'];
-			header("Refresh:1 url='movieSearch.php'");
+			header("Location: movieSearch.php");
 		}
 	
 	}
